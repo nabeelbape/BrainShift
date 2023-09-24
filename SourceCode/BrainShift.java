@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Random;
@@ -21,11 +23,11 @@ class BrainShift extends JFrame implements KeyListener,ActionListener
 
 		//----------Initialization------------
 
-		timeLabel=new JLabel(" Time : 01:59",new ImageIcon("icons/clock 22x22.png"),JLabel.CENTER);
+		timeLabel=new JLabel(" Time : 01:59", getImageIcon("icons/clock 22x22.png"),JLabel.CENTER);
 		timeLabel.setFont(new Font("sansserif",Font.PLAIN,22));
 		timeLabel.setForeground(Color.YELLOW);
 
-		scoreLabel=new JLabel(" Score : 0",new ImageIcon("icons/star 22x22.png"),JLabel.CENTER);
+		scoreLabel=new JLabel(" Score : 0", getImageIcon("icons/star 22x22.png"),JLabel.CENTER);
 		scoreLabel.setFont(new Font("sansserif",Font.PLAIN,22));
 		scoreLabel.setForeground(Color.RED);
 
@@ -115,8 +117,11 @@ class BrainShift extends JFrame implements KeyListener,ActionListener
 
 		//tim.addActionListener(this);
 
-		setBounds(150,150,580,500);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((d.width - 700) / 2, (d.height - 650) / 2);
+		setSize(580,500);
 		setVisible(true);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JOptionPane.showMessageDialog(this,"Let the game Begin!","Start",JOptionPane.INFORMATION_MESSAGE);
@@ -308,6 +313,19 @@ class BrainShift extends JFrame implements KeyListener,ActionListener
 			setString();
 		}
 		scoreLabel.setText("Score : "+score);
+	}
+
+	ImageIcon getImageIcon(String path) 
+	{
+		try 
+		{
+			Image image = ImageIO.read(getClass().getResource(path));
+			return new ImageIcon(image);
+		} 
+		catch (Exception e) 
+		{
+			return null;
+		}
 	}
 
 	//----------------Main Method-----------------------
